@@ -1,4 +1,7 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 
 class Question(models.Model):
@@ -8,6 +11,18 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('Fecha de publicación')
 
+    def was_published_recently(self):
+        """
+        Return a date with timezone
+        """
+        return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+
+    def __str__(self):
+        """
+        Return question_text as representation of an object
+        """
+        return self.question_text
+
 
 class Choise(models.Model):
     """
@@ -16,3 +31,9 @@ class Choise(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choise_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        """
+        Return choise_text like representation of an object
+        """
+        return self.choise_text
