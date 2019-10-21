@@ -1,0 +1,12 @@
+{% if lates_questions_list %}
+
+ <ul>
+   {% for question in lates_questions_list %}
+   <li><a href="{% url 'polls:detail_url' question.id %}">{{ question.question_text }}</a></li>
+   {% endfor %}
+ </ul>
+
+ {% else %}
+   <p>No polls are available</p>
+
+{% endif %}

@@ -1,18 +1,25 @@
-from django.shortcuts import HttpResponse
+from .models import Question
+from django.shortcuts import HttpResponse, render, get_object_or_404
 
 
 def index(request):
     """
-    Show simple hello world message in browser
+    List the latest 5 questions for publication dates
     """
-    return HttpResponse("Hello world")
+    template = 'polls/index.html'
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    context = {'latest_question_list': latest_question_list}
+
+    return render(request, template, context)
 
 
 def detail(request, question_id):
     """
     Detail for one question
     """
-    return HttpResponse(f"You're looking at question {question_id}")
+    question = get_object_or_404(Question, pk=question_id)
+
+    return render(request, 'polls/detail.html', {'question': question})
 
 
 def results(request, question_id):
