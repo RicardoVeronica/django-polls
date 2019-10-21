@@ -11,6 +11,10 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('Fecha de publicación')
 
+    class Meta:
+        verbose_name = "Pregunta"
+        verbose_name_plural = "Preguntas"
+
     def was_published_recently(self):
         """
         Return a date with timezone
