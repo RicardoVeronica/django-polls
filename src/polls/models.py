@@ -28,16 +28,16 @@ class Question(models.Model):
         return self.question_text
 
 
-class Choise(models.Model):
+class Choice(models.Model):
     """
-    Database choise text and votes count
+    Database choice text and votes count
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choise_text = models.CharField(max_length=200)
+    choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
 
     def __str__(self):
         """
-        Return choise_text like representation of an object
+        Return choice_text like representation of an object
         """
-        return self.choise_text
+        return self.choice_text
