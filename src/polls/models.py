@@ -8,7 +8,7 @@ class Question(models.Model):
     """
     Database question and published data
     """
-    question_text = models.CharField(max_length=200)
+    question_text = models.CharField('Pregunta', max_length=200)
     pub_date = models.DateTimeField('Fecha de publicación')
 
     class Meta:
@@ -20,6 +20,9 @@ class Question(models.Model):
         Return a date with timezone
         """
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    was_published_recently.admin_order_filed = 'pub_date'
+    was_published_recently.boolean = True
+    was_published_recently.short_description = '¿Publicado hoy?'
 
     def __str__(self):
         """
@@ -33,8 +36,8 @@ class Choice(models.Model):
     Database choice text and votes count
     """
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
+    choice_text = models.CharField('Elección', max_length=200)
+    votes = models.IntegerField('Votos', default=0)
 
     def __str__(self):
         """
